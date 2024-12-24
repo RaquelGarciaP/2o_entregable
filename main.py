@@ -15,7 +15,7 @@ depth = table_t5000.columns[3]
 T = table_t5000.columns[4]
 Pe = table_t5000.columns[5]
 
-N_ionization, N_excitation = calculate_populations(T, Pe)
+Ne, N_ionization, N_excitation = calculate_populations(T, Pe)
 
 N_Hminus, N_HI, N_HII = N_ionization
 N_HI_n1, N_HI_n2, N_HI_n3 = N_excitation

@@ -1,24 +1,25 @@
-from astropy.io.ascii import read
 import matplotlib.pyplot as plt
 import numpy as np
 
+# Constants
+kb = 8.6173324e-5   # Boltzmann constant (eV*K^-1)
+kb_cgs = 1.380649e-16       # erg/K
+
+# Ionization energies
+X_Hminus_HI = 0.755 # eV
+X_HI_HII = 13.598434599702 # eV
+
+# Partition functions
+U_Hminus = 1.
+U_HI = 2.
+U_HII = 1.
+
+# function to calculate the populations
 def calculate_populations(T, Pe):
-    # Constants
-    kb = 8.6173324e-5   # Boltzmann constant (eV*K^-1)
-    kb_cgs = 1.380649e-16       # erg/K
 
     # Calculate Ne for each Pe and T
     Ne = np.empty(len(T))
     Ne = Pe / (kb_cgs * T)
-
-    # Ionization energies
-    X_Hminus_HI = 0.755 # eV
-    X_HI_HII = 13.598434599702 # eV
-
-    # Partition functions
-    U_Hminus = 1.
-    U_HI = 2.
-    U_HII = 1.
 
     # Ionization populations (Saha equation)
     def saha_ecuation(U_j, U_j_1, X_j):
@@ -56,7 +57,7 @@ def calculate_populations(T, Pe):
     N_ionization=[N_Hminus, N_HI, N_HII]
     N_excitation=[N_HI_n1, N_HI_n2, N_HI_n3]
     
-    return N_ionization, N_excitation
+    return Ne, N_ionization, N_excitation
 
 
 
