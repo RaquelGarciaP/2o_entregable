@@ -19,7 +19,6 @@ U_HII = 1.0
 def calculate_populations(T, Pe):
 
     # Calculate Ne for each Pe and T
-    Ne = np.empty(len(T))
     Ne = Pe / (kb_cgs * T)
 
     # Ionization populations (Saha equation)
@@ -43,8 +42,6 @@ def calculate_populations(T, Pe):
     N_HI = N_Hminus / A
     N_HII = N_Hminus / (A * B)
 
-    # print('Para tau_ross=1 tenemos N_HI=', N_HI[40])
-
     # Excitation energies
     XX_ij = [0, 10.206, 12.095]  # levels: n=1, n=2, n=3 (eV)
     # Statistical weights
@@ -60,7 +57,20 @@ def calculate_populations(T, Pe):
     N_HI_n2 = boltzmann_equation(gg[1], U_HI, XX_ij[1])
     N_HI_n3 = boltzmann_equation(gg[2], U_HI, XX_ij[2])
 
-    # print('Para tau_ross=1 tenemos N_HI_n1=', N_HI_n1[40])
+    # ********* Checks *********
+
+    # Check charge conservation: Ne + N_Hminus = N_HII
+    charge_difference = np.abs((Ne + N_Hminus) - N_HII)
+    print(
+        "Charge conservation check (should be close to 0):", np.max(charge_difference)
+    )
+
+    # Check excitation populations are less than N_HI
+    assert np.all(N_HI_n1 <= N_HI), "Excitation level n=1 exceeds N_HI"
+    assert np.all(N_HI_n2 <= N_HI), "Excitation level n=2 exceeds N_HI"
+    assert np.all(N_HI_n3 <= N_HI), "Excitation level n=3 exceeds N_HI"
+
+    # ********* End checks *********
 
     N_ionization = [N_Hminus, N_HI, N_HII]
     N_excitation = [N_HI_n1, N_HI_n2, N_HI_n3]

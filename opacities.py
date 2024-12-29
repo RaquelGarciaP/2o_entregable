@@ -18,23 +18,6 @@ lamb = lamb_A * 1e-8  # cm
 # frequency array
 nu = c / lamb
 
-"""# wavelength array of ionization values (lambda +- delta(lambda))
-    # HI ionization values (lambda = n^2/(Z^2 * R) , where n=1,2,3)
-lamb_ionization_HI_n1 = 1/R
-lamb_ionization_HI_n2 = 2**2/R
-lamb_ionization_HI_n3 = 3**2/R
-    # H- ionization values
-e_ionization_Hminus = 1.208e-12 # ergs; ionization energy of H- (=0.754 eV)
-lamb_ionization_Hminus = h*c/e_ionization_Hminus    # different condition from HI because it is
-                                                    # not an hydrogenoid atom (has 2 e-)
-# array containing wavelengths really close to the ionization wavelength (lambda +- delta(lambda))
-delta_lambda = 1e-2
-lamb_deltalamb = np.array([lamb_ionization_HI_n1-delta_lambda, lamb_ionization_HI_n1+delta_lambda, \
-                           lamb_ionization_HI_n2-delta_lambda, lamb_ionization_HI_n2+delta_lambda, \
-                           lamb_ionization_HI_n3-delta_lambda, lamb_ionization_HI_n3+delta_lambda, \
-                           lamb_ionization_Hminus-delta_lambda, lamb_ionization_Hminus+delta_lambda])
-"""
-
 # a_i constants of the H- bound-free absorption cross-section
 aa = [
     1.99654,
@@ -53,9 +36,6 @@ def calculate_opacities(T, Pe, Ne, N_ionization, N_excitation):
     # Save the ionization and excitation populations
     N_Hminus, N_HI, N_HII = N_ionization
     N_HI_n1, N_HI_n2, N_HI_n3 = N_excitation
-
-    """# loop to calculate opacities for each lambda
-    for lamb, lamb_A in zip(lamb_array, lamb_A_array):"""
 
     # *********** H (HI) opacities ***********
 
@@ -92,7 +72,7 @@ def calculate_opacities(T, Pe, Ne, N_ionization, N_excitation):
         # Append the calculated k_bf_HI for this n
         k_bf_HI_nn.append(k_bf_HI)
 
-        # bound-bound (line absorption -> Balmer and Lyman series)
+    # bound-bound (line absorption -> Balmer and Lyman series)
 
     def line_absorption_coef(u, l, n_u, n_l, delta):
         g_bb = (
@@ -211,9 +191,6 @@ def calculate_opacities(T, Pe, Ne, N_ionization, N_excitation):
         + k_bf_HI_n1
         + k_bf_HI_n2
         + k_bf_HI_n3
-        + k_bb_Ly_a
-        + k_bb_Ly_b
-        + k_bb_Bal
         + k_ff_Hminus
         + k_bf_Hminus
         + k_es
