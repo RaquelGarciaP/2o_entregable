@@ -55,6 +55,7 @@ k_TOTAL, k_HI, k_Hminus, k_es = calculate_opacities(
 # *********** Print all the results ***********
 
 # Populations
+print("\n")
 print("*********** Results populations ***********")
 
 index_tauR05 = 37
@@ -84,7 +85,7 @@ lamb_all = np.linspace(500, 20000, 19501)
 index_1 = np.argmin(abs(lamb_all - 911.743))
 index_2 = np.argmin(abs(lamb_all - 3646.973))
 index_3 = np.argmin(abs(lamb_all - 8205.689))
-index_4 = np.argmin(abs(lamb_all - 16444.327))
+index_4 = np.argmin(abs(lamb_all - 16422.235))
 
 opacities = (
     k_ff_HI,
@@ -117,7 +118,7 @@ for k, name in zip(
 
 print("$k_e$ & %.2e" % k_es)
 
-print("\nLambdas used:")
+"""print("\nLambdas used:")
 print("Lamda_1 - Delta = ", lamb_all[index_1 - 1])
 print("Lamda_1 + Delta = ", lamb_all[index_1 + 1])
 print("Lamda_2 - Delta = ", lamb_all[index_2 - 1])
@@ -125,7 +126,7 @@ print("Lamda_2 + Delta = ", lamb_all[index_2 + 1])
 print("Lamda_3 - Delta = ", lamb_all[index_3 - 1])
 print("Lamda_3 + Delta = ", lamb_all[index_3 + 1])
 print("Lamda_4 - Delta = ", lamb_all[index_4 - 1])
-print("Lamda_4 + Delta = ", lamb_all[index_4 + 1])
+print("Lamda_4 + Delta = ", lamb_all[index_4 + 1])"""
 
 # now we print the table of opacities for Lyman and Balmer
 opacities_lyman_balmer = [k_bb_Ly_a, k_bb_Ly_b, k_bb_Bal]

@@ -149,7 +149,7 @@ def calculate_opacities(T, Pe, Ne, N_ionization, N_excitation):
     # bound-free
 
     # Condition for lamb values
-    e_ionization_Hminus = 1.208e-12  # ergs; ionization energy of H- (=0.754 eV)
+    e_ionization_Hminus = 1.209643358e-12  # ergs; ionization energy of H- (=0.755 eV)
     lamb_ionization_Hminus = (
         h * c / e_ionization_Hminus
     )  # different condition from HI because it is
